@@ -24,8 +24,8 @@ The logic is:
 - At the first moment, it's only a read-only client for database. For cache, it can read and write.
 ---
 The logic is:
-- If frontend needs to know the current phrase, backend will get that from cache to give this data to frontend
-- If frontend wants to change the current phrase, backend will get a random phrase from database and set that into cache
+- If frontend needs to know the current phrase, backend will get that from cache to give this data to frontend.
+- If frontend wants to change the current phrase, backend will get a random phrase from database and set that into cache.
 
 ### Database
 PostgreSQL
