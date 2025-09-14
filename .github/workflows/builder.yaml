@@ -7,10 +7,13 @@ on:
   #   types: [closed]
   #   branch: ["DEV"]
   workflow_dispatch:
-    branch: ["DEV"]
     inputs:
       path:
         description: "Diretório do projeto (exige Dockerfile na raíz)"
+        required: true
+        type: string
+      module:
+        description: "Nome do módulo"
         required: true
         type: string
   
@@ -39,5 +42,5 @@ jobs:
       uses: docker/build-push-action@v6
       with:
         context: ${{ inputs.path }}
-        push: false
-        tags: user/app:latest
+        push: true
+        tags: vinipilan/ph-gen-app:dev-${{ module }}-${{ GITHUB_SHA::5 }}
