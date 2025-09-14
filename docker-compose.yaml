@@ -1,0 +1,48 @@
+# Docker compose file used to create the dev environment
+services:
+  keydb:
+    image: eqalpha/keydb:latest
+    command:
+      [
+        "keydb-server",
+        "/etc/keydb/keydb.conf",
+        "--server-threads", "4"
+      ]
+    # ports:
+    #   - "6379:6379"
+    volumes:
+      - keydb-data:/data
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ph-gen-db
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: 123
+    # ports:
+    #   - "5432:5432"
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+
+  adminer:
+    image: adminer:latest
+    ports:
+      - "8081:8080"
+
+  frontend:
+    image: nginx:latest
+    ports:
+    - "80:80"
+    volumes:
+    - ./frontend/nginx-files:/etc/nginx/conf.d
+    - ./frontend/html:/usr/share/nginx/html/test
+
+  backend:
+    image: ph-gen-app:0.1.0
+    volumes:
+    - ./backend/api:/home/ph-gen-app
+    # ports:
+    # - "8082:8000"
+
+volumes:
+  keydb-data:
+  pg-data:
