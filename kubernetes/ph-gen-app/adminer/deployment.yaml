@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: adminer
+  name: adminer
+  namespace: ph-gen-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: adminer
+  template:
+    metadata:
+      labels:
+        app: adminer
+    spec:
+      containers:
+      - image: adminer:latest
+        name: adminer
+        resources:
+          requests:
+            memory: 50Mi
+        ports:
+        - containerPort: 8080
