@@ -1,0 +1,15 @@
+name: first workflow
+
+on: 
+  pull_request:
+    types: [closed]
+    branch: ["DEV"]
+  
+jobs:
+  builder:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: start
+      run: |
+        echo "Buildando nova image (teste)!";
