@@ -13,7 +13,6 @@ on:
         options:
           - backend
           - frontend
-
 jobs:
   builder:
     runs-on: ubuntu-latest
