@@ -12,7 +12,7 @@
 */
 
 // Global vars
-URL_BASE = "http://localhost/api"
+URL_BASE = "http://localhost:8080/api"
 
 
 // UI elements
@@ -24,6 +24,7 @@ const p_main_content_phrase = document.getElementById("main-content-phrase");
 // Listeners
 button_refresh_content_phrase.addEventListener("click", refreshContentPhrase);
 button_change_content_phrase.addEventListener("click", changeContentPhrase);
+
 window.addEventListener("load", refreshContentPhrase);
 
 
