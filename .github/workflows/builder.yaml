@@ -42,4 +42,5 @@ jobs:
           context: ${{ inputs.path }}
           file: ${{ inputs.path }}/Dockerfile
           push: true
-          tags: vinipilan/ph-gen-app:dev-${{ inputs.module }}-${{ github.sha }}
+          tags: vinipilan/ph-gen-app:dev-${{ inputs.module }}-latest
+          # tags: vinipilan/ph-gen-app:dev-${{ inputs.module }}-${{ github.sha }}
