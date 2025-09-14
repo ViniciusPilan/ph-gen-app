@@ -2,7 +2,7 @@ name: first workflow
 
 on: 
   pull_request:
-    branch: ["main"]
+    branch: ["DEV"]
   
 jobs:
   builder:
