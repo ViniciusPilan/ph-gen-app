@@ -1,7 +1,8 @@
-# PH Gen App
+# PhGen App
+A simple application but developed in a container approach. It's over engineered to improve/show skills about that idea. Technologies: Docker (for the dev environment), NGINX (Application webserver and proxy server between frontend and backend), Python (Rest API with FastAPI), HTML, JavaScript, Redis (KeyDB), and PostgreSQL.
 
 ## Architecture
-Frontend (NGINX + HTLM + JS) -> Backend (Python FastAPI) -> DB (postgres) / Cache (KeyDB)
+![arch.png](arch.png)
 
 ## Technolies and logics
 ### Frontend
