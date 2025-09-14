@@ -1,0 +1,9 @@
+name: Teste
+jobs:
+  teste:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+      - name: Preparar builder
+        uses: docker/setup-buildx-action@v3
