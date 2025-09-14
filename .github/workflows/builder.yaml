@@ -43,4 +43,4 @@ jobs:
       with:
         context: ${{ inputs.path }}
         push: true
-        tags: vinipilan/ph-gen-app:dev-${{ inputs.module }}-${{ GITHUB_SHA }}
+        tags: vinipilan/ph-gen-app:dev-${{ inputs.module }}-${{ github.sha }}
