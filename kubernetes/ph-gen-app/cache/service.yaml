@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: cache
+  name: cache
+  namespace: ph-gen-app
+spec:
+  ports:
+  - port: 6379
+    protocol: TCP
+  selector:
+    app: cache
+  type: ClusterIP

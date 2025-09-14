@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: backend
+  name: backend
+  namespace: ph-gen-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - image: vinipilan/ph-gen-app:dev-backend-latest
+        name: app
+        env:
+        - name: POSTGRES_HOST
+          value: database.ph-gen-app.svc.cluster.local
+        - name: REDIS_HOST
+          value: cache.ph-gen-app.svc.cluster.local
+        resources:
+          requests:
+            memory: 100Mi
+        ports:
+        - containerPort: 8000

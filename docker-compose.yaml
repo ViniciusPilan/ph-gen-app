@@ -1,7 +1,7 @@
 # Docker compose file used to create the dev environment
 services:
   keydb:
-    image: eqalpha/keydb:latest
+    image: bitnami/keydb:latest
     command:
       [
         "keydb-server",
@@ -29,15 +29,19 @@ services:
       - "8081:8080"
 
   frontend:
-    image: nginx:latest
+    build:
+      context: "frontend"
+      dockerfile: "Dockerfile"
     ports:
-    - "80:80"
+    - "8080:80"
     volumes:
     - ./frontend/nginx-files:/etc/nginx/conf.d
     - ./frontend/html:/usr/share/nginx/html/test
 
   backend:
-    image: ph-gen-app:0.1.0
+    build:
+      context: "backend"
+      dockerfile: "Dockerfile"
     volumes:
     - ./backend/api:/home/ph-gen-app
     # ports:

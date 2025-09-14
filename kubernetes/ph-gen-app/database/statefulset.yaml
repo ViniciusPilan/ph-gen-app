@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app: database
+  name: database
+  namespace: ph-gen-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: database
+  template:
+    metadata:
+      labels:
+        app: database
+    spec:
+      containers:
+      - image: postgres:16-alpine
+        name: postgres
+        env:
+        - name: POSTGRES_DB
+          value: ph-gen-db
+        - name: POSTGRES_USER
+          value: app
+        - name: POSTGRES_PASSWORD
+          value: "123"
+        ports:
+        - containerPort: 5432
+        resources:
+          requests:
+            memory: 100Mi
