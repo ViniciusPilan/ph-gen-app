@@ -29,7 +29,9 @@ services:
       - "8081:8080"
 
   frontend:
-    image: nginx:latest
+    build:
+      context: "frontend"
+      dockerfile: "Dockerfile"
     ports:
     - "8080:80"
     volumes:
@@ -37,7 +39,9 @@ services:
     - ./frontend/html:/usr/share/nginx/html/test
 
   backend:
-    image: ph-gen-app:0.1.0
+    build:
+      context: "backend"
+      dockerfile: "Dockerfile"
     volumes:
     - ./backend/api:/home/ph-gen-app
     # ports:
