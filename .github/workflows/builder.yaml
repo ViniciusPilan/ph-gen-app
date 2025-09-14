@@ -41,6 +41,7 @@ jobs:
     - name: Build and push
       uses: docker/build-push-action@v6
       with:
-        context: ${{ inputs.path }}
+        context: .
+        working-directory: ${{ inputs.path }}
         push: true
         tags: vinipilan/ph-gen-app:dev-${{ inputs.module }}-${{ github.sha }}
