@@ -1,0 +1,14 @@
+name: first workflow
+
+on: 
+  pull_request:
+    branch: ["DEV"]
+  
+jobs:
+  builder:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: start
+      run: |
+        echo "Hello!";
