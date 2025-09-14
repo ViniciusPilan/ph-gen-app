@@ -5,14 +5,14 @@ name: Build dev project
 on:
   workflow_dispatch:
     inputs:
-      path:
-        description: "Diretório do projeto (exige Dockerfile na raiz, ex.: backend)"
-        required: true
-        type: string
       module:
-        description: "Nome do módulo (ex.: backend)"
+        description: "Module name (backend|frontend)"
+        type: choice
         required: true
-        type: string
+        default: 'backend'
+        options:
+          - backend
+          - frontend
 
 jobs:
   builder:
@@ -39,8 +39,9 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
-          context: ${{ inputs.path }}
-          file: ${{ inputs.path }}/Dockerfile
+          context: ${{ inputs.module }}
+          file: ${{ inputs.module }}/Dockerfile
+          platforms: linux/amd64,linux/arm64
           push: true
           tags: vinipilan/ph-gen-app:dev-${{ inputs.module }}-latest
           # tags: vinipilan/ph-gen-app:dev-${{ inputs.module }}-${{ github.sha }}
