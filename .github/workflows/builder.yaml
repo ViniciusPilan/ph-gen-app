@@ -1,9 +1,14 @@
-name: Teste
+name: first workflow
+
+on: 
+  pull_request:
+    branch: ["main"]
+  
 jobs:
-  teste:
+  builder:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout do código
-        uses: actions/checkout@v4
-      - name: Preparar builder
-        uses: docker/setup-buildx-action@v3
+    - name: start
+      run: |
+        echo "Hello!";
