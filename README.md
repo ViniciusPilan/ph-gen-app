@@ -10,9 +10,11 @@ A simple application but developed in a container approach. It's over engineered
 - **Redis (KeyDB):** to give cached information for backend
 - **PostgreSQL:** to persist the phrases that will be loaded by backend and gave to frontend
 
+
 ## Architecture
 All the application was developed to be in modules approach. We can run it with Docker (ideal for development) or Kubernetes.
 ![arch.png](arch.png)
+
 
 ## Technologies and logics
 ### Frontend
@@ -55,10 +57,8 @@ INSERT INTO phrases (Phrase) VALUES ('Hello DB 5!');
 SELECT * FROM phrases;
 ```
 
-
 ### Cache
 KeyDB (Redis fork)
-
 
 ### Adminer
 Database SQL admin tool, used to interact with the Postgres if it is necessary. To connect adminer with the postgres database, access the web UI (port 8080 of the adminer container). Login with the following values:
