@@ -29,7 +29,7 @@ The logic is:
 - If frontend wants to change the current phrase, backend will get a random phrase from database and set that into cache.
 
 ### Database
-Uses PostgreSQL. In both Kubernetes and Docker, I created with persistent volumes. As the application is not able to write data via the Rest APi, we need to use the adminer to execute SQL commands.
+Uses PostgreSQL. In both Kubernetes and Docker, I created with persistent volumes. For Docker approach, the database will start with the table and some test values inserted. For Kubernetes, the database will start clean (necessary adminer to create the table and to insert the lines).
 
 ```sql
 CREATE TABLE IF NOT EXISTS phrases (
@@ -49,6 +49,29 @@ SELECT * FROM phrases;
 
 ### Cache
 KeyDB (Redis fork)
+
+
+### Adminer
+Database SQL admin tool, used to interact with the Postgres if it is necessary. To connect adminer with the postgres database, access the web UI (port 8080 of the adminer container). Login with the following values:
+
+For the Docker approach:
+```yaml
+System: PostgreSQL
+Server: ph-gen-app-database
+Database: ph-gen-db
+User: app
+Password: 123
+```
+
+For the Kubernetes approach:
+```yaml
+System: PostgreSQL
+Server: database.ph-gen-app.svc.cluster.local
+Database: ph-gen-db
+User: app
+Password: 123
+```
+
 
 ## Project structure
 ```
