@@ -1,19 +1,17 @@
 # Docker compose file used to create the dev environment
 services:
-  keydb:
+  ph-gen-app-cache:
     image: bitnami/keydb:latest
-    command:
-      [
-        "keydb-server",
-        "/etc/keydb/keydb.conf",
-        "--server-threads", "4"
-      ]
+    container_name: ph-gen-app-cache
+    environment:
+      ALLOW_EMPTY_PASSWORD: "yes"
     # ports:
     #   - "6379:6379"
     volumes:
       - keydb-data:/data
-  postgres:
+  ph-gen-app-database:
     image: postgres:16-alpine
+    container_name: ph-gen-app-database
     environment:
       POSTGRES_DB: ph-gen-db
       POSTGRES_USER: app
@@ -22,13 +20,16 @@ services:
     #   - "5432:5432"
     volumes:
       - pg-data:/var/lib/postgresql/data
+      - ./initdb:/docker-entrypoint-initdb.d
 
-  adminer:
+  ph-gen-app-database-adminer:
+    container_name: ph-gen-app-database-adminer
     image: adminer:latest
     ports:
       - "8081:8080"
 
-  frontend:
+  ph-gen-app-frontend:
+    container_name: ph-gen-app-frontend
     build:
       context: "frontend"
       dockerfile: "Dockerfile"
@@ -38,7 +39,8 @@ services:
     - ./frontend/nginx-files:/etc/nginx/conf.d
     - ./frontend/html:/usr/share/nginx/html/test
 
-  backend:
+  ph-gen-app-backend:
+    container_name: ph-gen-app-backend
     build:
       context: "backend"
       dockerfile: "Dockerfile"

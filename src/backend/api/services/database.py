@@ -5,7 +5,7 @@ import psycopg2
 import os
 
 
-POSTGRES_HOST = os.environ.get("POSTGRES_HOST", "ph-gen-app-postgres-1")
+POSTGRES_HOST = os.environ.get("POSTGRES_HOST", "ph-gen-app-database")
 POSTGRES_PORT = os.environ.get("POSTGRES_PORT", "5432")
 POSTGRES_DATABASE = os.environ.get("POSTGRES_DATABASE", "ph-gen-db")
 POSTGRES_USER = os.environ.get("POSTGRES_USER", "app")
