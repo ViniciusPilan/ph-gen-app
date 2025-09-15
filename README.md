@@ -75,22 +75,27 @@ Password: 123
 
 ## Project structure
 ```
-├── backend
-│   ├── api
-│   │   ├── main.py          <--- REST API creation file - routes and API instantiation
-│   │   └── services
-│   │       ├── cache.py     <--- API to communicate with the cache (KeyDB)
-│   │       └── database.py  <--- API to communicate with the database (PostgreSQL)
-│   ├── Dockerfile
-│   └── requirements.txt     <--- Python lib requirements that will be installed by pip (in build time)
-├── docker-compose.yaml      <--- File to create the containerized development environment 
-├── frontend
-│   ├── html
-│   │   ├── index.html       <--- Frontend main page
-│   │   └── script.js        <--- Frontend logic to communicate with the backend (using the nginx as proxy server)
-│   └── nginx-files
-│       └── default.conf.    <--- Create the webserver to serve the application and 
-|                                 works as proxy server to  frontend communicate with backend
-├── kubernetes               <--- Kubernetes manifests to run all the application in a Kubernetes cluster
-└── README.md
+├── arch.png
+├── kubernetes                  <--- Kubernetes manifests to run all the application in a Kubernetes cluster
+├── README.md
+└── src
+    ├── backend
+    │   ├── api
+    │   │   ├── main.py         <--- REST API creation file - routes and API instantiation
+    │   │   └── services
+    │   │       ├── cache.py    <--- API to communicate with the cache (KeyDB)
+    │   │       └── database.py <--- API to communicate with the database (PostgreSQL)
+    │   ├── Dockerfile          <--- Docker image recipe to create the container image for backend
+    │   └── requirements.txt    <--- Python lib requirements that will be installed by pip (in build time)
+    ├── docker-compose.yaml     <--- File to create the containerized development environment
+    ├── frontend
+    │   ├── Dockerfile          <--- Docker image recipe to create the container image for frontend
+    │   ├── html
+    │   │   ├── index.html      <--- Frontend main page
+    │   │   └── script.js       <--- Frontend logic to communicate with the backend (using the nginx as proxy server)
+    │   └── nginx-files
+    │       └── default.conf    <--- Create the webserver to serve the application and works as 
+    │                                proxy server to  frontend communicate with backend
+    └── initdb                  <--- Init SQL commands to setup the database (only for the Docker approach)
+        └── 01_schema.sql
 ```
