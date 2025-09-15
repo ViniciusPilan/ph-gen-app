@@ -18,20 +18,23 @@ All the application was developed to be in modules approach. We can run it with 
 
 ## Technologies and logics
 ### Frontend
-**NGINX**
+#### NGINX
 - web server for application
 - proxy server to allow frontend communicate with backend
-**HTLM**
+
+#### HTLM
 Used to construct the web UI
-**JavaScript**
-Defines how frontend interact with proxy server to get data from backend
+
+#### JavaScript
+Defines how frontend interact with proxy server to get data from backend.
+
 ---
 The logic is:
 - If frontend needs to know the current phrase, frontend sends a GET request to backend via proxy pass to get the current phrase (more details in Backend section).
 - If frontend wants to change the current phrase, frontend sends a GET request to backend via proxy pass to change the current phrase, and also, after that, frontend sends another GET request to backend via proxy pass to get the current phrase (more details in Backend section).
 
 ### Backend
-**Python FastAPI**
+#### Python FastAPI
 - API Rest that interacts with a Postgres database and KeyDB cache.
 - At the first moment, it's only a read-only client for database. For cache, it can read and write.
 ---
@@ -58,7 +61,7 @@ SELECT * FROM phrases;
 ```
 
 ### Cache
-KeyDB (Redis fork)
+KeyDB (Redis fork) to avoid unnecessary connections to the database.
 
 ### Adminer
 Database SQL admin tool, used to interact with the Postgres if it is necessary. To connect adminer with the postgres database, access the web UI (port 8080 of the adminer container). Login with the following values:
