@@ -1,9 +1,20 @@
 # PhGen App
-A simple application but developed in a container approach. It's over engineered to improve/show skills about that idea. Technologies: Docker (for the dev environment), NGINX (Application webserver and proxy server between frontend and backend), Python (Rest API with FastAPI), HTML, JavaScript, Redis (KeyDB), and PostgreSQL.
+A simple application but developed in a container approach. It's over engineered to improve/show skills about that idea. Technologies: 
+- **Docker:** to create the dev local environment
+- **Kubernetes:** to test the containers in a Kubernetes cluster
+- **Github Actions Workflow:** to help in image build and push
+- **NGINX:** application webserver and proxy server between frontend and backend
+- **Python:** rest API with FastAPI
+- **HTML:** to create the frontend page content
+- **JavaScript:** to create the page logic for communication with backend
+- **Redis (KeyDB):** to give cached information for backend
+- **PostgreSQL:** to persist the phrases that will be loaded by backend and gave to frontend
+
 
 ## Architecture
 All the application was developed to be in modules approach. We can run it with Docker (ideal for development) or Kubernetes.
 ![arch.png](arch.png)
+
 
 ## Technologies and logics
 ### Frontend
@@ -29,7 +40,7 @@ The logic is:
 - If frontend wants to change the current phrase, backend will get a random phrase from database and set that into cache.
 
 ### Database
-Uses PostgreSQL. In both Kubernetes and Docker, I created with persistent volumes. As the application is not able to write data via the Rest APi, we need to use the adminer to execute SQL commands.
+Uses PostgreSQL. In both Kubernetes and Docker, I created with persistent volumes. For Docker approach, the database will start with the table and some test values inserted. For Kubernetes, the database will start clean (necessary adminer to create the table and to insert the lines).
 
 ```sql
 CREATE TABLE IF NOT EXISTS phrases (
@@ -46,28 +57,54 @@ INSERT INTO phrases (Phrase) VALUES ('Hello DB 5!');
 SELECT * FROM phrases;
 ```
 
-
 ### Cache
 KeyDB (Redis fork)
 
+### Adminer
+Database SQL admin tool, used to interact with the Postgres if it is necessary. To connect adminer with the postgres database, access the web UI (port 8080 of the adminer container). Login with the following values:
+
+For the Docker approach:
+```yaml
+System: PostgreSQL
+Server: ph-gen-app-database
+Database: ph-gen-db
+User: app
+Password: 123
+```
+
+For the Kubernetes approach:
+```yaml
+System: PostgreSQL
+Server: database.ph-gen-app.svc.cluster.local
+Database: ph-gen-db
+User: app
+Password: 123
+```
+
+
 ## Project structure
 ```
-├── backend
-│   ├── api
-│   │   ├── main.py          <--- REST API creation file - routes and API instantiation
-│   │   └── services
-│   │       ├── cache.py     <--- API to communicate with the cache (KeyDB)
-│   │       └── database.py  <--- API to communicate with the database (PostgreSQL)
-│   ├── Dockerfile
-│   └── requirements.txt     <--- Python lib requirements that will be installed by pip (in build time)
-├── docker-compose.yaml      <--- File to create the containerized development environment 
-├── frontend
-│   ├── html
-│   │   ├── index.html       <--- Frontend main page
-│   │   └── script.js        <--- Frontend logic to communicate with the backend (using the nginx as proxy server)
-│   └── nginx-files
-│       └── default.conf.    <--- Create the webserver to serve the application and 
-|                                 works as proxy server to  frontend communicate with backend
-├── kubernetes               <--- Kubernetes manifests to run all the application in a Kubernetes cluster
-└── README.md
+├── arch.png
+├── kubernetes                  <--- Kubernetes manifests to run all the application in a Kubernetes cluster
+├── README.md
+└── src
+    ├── backend
+    │   ├── api
+    │   │   ├── main.py         <--- REST API creation file - routes and API instantiation
+    │   │   └── services
+    │   │       ├── cache.py    <--- API to communicate with the cache (KeyDB)
+    │   │       └── database.py <--- API to communicate with the database (PostgreSQL)
+    │   ├── Dockerfile          <--- Docker image recipe to create the container image for backend
+    │   └── requirements.txt    <--- Python lib requirements that will be installed by pip (in build time)
+    ├── docker-compose.yaml     <--- File to create the containerized development environment
+    ├── frontend
+    │   ├── Dockerfile          <--- Docker image recipe to create the container image for frontend
+    │   ├── html
+    │   │   ├── index.html      <--- Frontend main page
+    │   │   └── script.js       <--- Frontend logic to communicate with the backend (using the nginx as proxy server)
+    │   └── nginx-files
+    │       └── default.conf    <--- Create the webserver to serve the application and works as 
+    │                                proxy server to  frontend communicate with backend
+    └── initdb                  <--- Init SQL commands to setup the database (only for the Docker approach)
+        └── 01_schema.sql
 ```

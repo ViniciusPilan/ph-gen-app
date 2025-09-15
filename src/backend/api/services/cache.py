@@ -5,7 +5,7 @@ import os
 import redis
 
 
-REDIS_HOST = os.environ.get("REDIS_HOST", "ph-gen-app-keydb-1")
+REDIS_HOST = os.environ.get("REDIS_HOST", "ph-gen-app-cache")
 REDIS_PORT = os.environ.get("REDIS_PORT", "6379")
 
 
