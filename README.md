@@ -2,7 +2,6 @@
 A simple application but developed in a container approach. It's over engineered to improve/show skills about that idea. Technologies: Docker (for the dev environment), NGINX (Application webserver and proxy server between frontend and backend), Python (Rest API with FastAPI), HTML, JavaScript, Redis (KeyDB), and PostgreSQL.
 
 ## Architecture
-All the application was developed to be in modules approach. We can run it with Docker (ideal for development) or Kubernetes.
 ![arch.png](arch.png)
 
 ## Technolies and logics
@@ -29,23 +28,7 @@ The logic is:
 - If frontend wants to change the current phrase, backend will get a random phrase from database and set that into cache.
 
 ### Database
-Uses PostgreSQL. In both Kubernetes and Docker, I created with persistent volumes. As the application is not able to write data via the Rest APi, we need to use the adminer to execute SQL commands.
-
-```sql
-CREATE TABLE IF NOT EXISTS phrases (
-    id     SERIAL,
-    phrase TEXT PRIMARY KEY
-);
-
-INSERT INTO phrases (Phrase) VALUES ('Hello DB 1!');
-INSERT INTO phrases (Phrase) VALUES ('Hello DB 2!');
-INSERT INTO phrases (Phrase) VALUES ('Hello DB 3!');
-INSERT INTO phrases (Phrase) VALUES ('Hello DB 4!');
-INSERT INTO phrases (Phrase) VALUES ('Hello DB 5!');
-
-SELECT * FROM phrases;
-```
-
+PostgreSQL
 
 ### Cache
 KeyDB (Redis fork)
@@ -68,6 +51,5 @@ KeyDB (Redis fork)
 │   └── nginx-files
 │       └── default.conf.    <--- Create the webserver to serve the application and 
 |                                 works as proxy server to  frontend communicate with backend
-├── kubernetes               <--- Kubernetes manifests to run all the application in a Kubernetes cluster
 └── README.md
 ```

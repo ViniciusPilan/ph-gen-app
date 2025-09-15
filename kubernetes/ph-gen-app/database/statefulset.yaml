@@ -30,14 +30,3 @@ spec:
         resources:
           requests:
             memory: 100Mi
-        volumeMounts:
-        - name: ph-gen-app-database
-          mountPath: /var/lib/postgresql/data
-  volumeClaimTemplates:
-  - metadata:
-      name: ph-gen-app-database
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-      resources:
-        requests:
-          storage: 100Mi
