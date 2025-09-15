@@ -5,7 +5,7 @@ A simple application but developed in a container approach. It's over engineered
 All the application was developed to be in modules approach. We can run it with Docker (ideal for development) or Kubernetes.
 ![arch.png](arch.png)
 
-## Technolies and logics
+## Technologies and logics
 ### Frontend
 **NGINX**
 - web server for application
